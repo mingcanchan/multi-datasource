@@ -4,6 +4,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * 动态数据源（需要继承AbstractRoutingDataSource）
+ * 在调用mapper之前设置  DynamicDataSource.setDatabaseType(databaseType);
  *
  * @author chenmingcan
  */
