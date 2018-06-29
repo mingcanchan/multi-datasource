@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ming.mapper.TestDataSourceMapper">
+
+    <resultMap id="city" type="com.ming.pojo.CityNoDO">
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <select id="get" parameterType="string" resultMap="city">
+        select id, code, city, province, DATE_FORMAT(insert_time,'%Y-%m-%d %T') as insert_time, update_time
+        from city_code
+        where code = #{code}
+
+    </select>
+</mapper>

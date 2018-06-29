@@ -1,0 +1,54 @@
+
+server:
+  port: 8888
+
+#数据库公共配置
+datasource:
+  base:
+#  配置监控统计拦截的filters
+    filters:  stat
+#   配置初始化大小、最小、最大
+    maxActive: 20
+    initialSize:  1
+    minIdle:  1
+#  配置获取连接等待超时的时间
+    maxWait:  60000
+#  配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis:  60000
+#  配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery:  SELECT 'x'
+    testWhileIdle:  true
+    testOnBorrow: false
+    testOnReturn: false
+#  打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements:  true
+    maxPoolPreparedStatementPerConnectionSize: 20
+
+
+#the first datasource
+jdbc:
+  master:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/elephant_server?autoReconnect=true&useUnicode=true&charseterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+
+#the second datasource
+  other:
+    driverClassName:  com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/elephant?autoReconnect=true&useUnicode=true&charseterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+
+
+#日志
+logging:
+  config: classpath:logback-spring.xml
+
+    #mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ming.pojo
+  configuration:
+    map-underscore-to-camel-case: true

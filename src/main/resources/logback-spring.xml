@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+
+    <property name="BASE_PATH" value="/logs"/>
+    <!--<property name="PORT" value="" />-->
+    <property name="MODULE_NAME" value="multi-datasource"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyyMMdd HH:mm:ss SSS} [%thread] [%level]%caller{1}%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_debug.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_%d{yyyyMMdd}_debug.log</fileNamePattern>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS} [%thread] [%level]%caller{1}%msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- =========================================公用配置Start=============================== -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_info.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_%d{yyyyMMdd}_info.log</fileNamePattern>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS} [%thread] [%level]%caller{1}%msg%n</Pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_error.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${BASE_PATH}/${MODULE_NAME}/${MODULE_NAME}_%d{yyyyMMdd}_error.log</fileNamePattern>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS} [%thread] [%level] %caller{1}%msg%n</Pattern>
+        </encoder>
+    </appender>
+    <!-- =========================================公用配置End=============================== -->
+
+    <logger name="com.ming.service" level="DEBUG"/>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+
